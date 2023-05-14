@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Mood Detector</title>
+		<style>
+
+			body {
+				margin: 0;
+				padding: 0;
+				background-size: cover;
+				background-position: center;
+				font-family: Arial, sans-serif;
+			}
+
+			.bgimage{
+				background-image: url('static\\Images\\bgimg.png');
+			}
+
+			.heading {
+				padding: 20px;
+				text-align: center;
+				font-size: 36px;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				background-color: #02233d;
+				color: #fff;
+				opacity: 2;
+				font-family:cursive
+			}
+			.container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				height: 75vh;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+			.label {
+				font-size: 24px;
+				font-weight: bold;
+				color: #fff;
+				margin-bottom: 20px;
+			}
+			.button-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			.button {
+				padding: 10px 20px;
+				margin: 10px;
+				font-size: 18px;
+				font-weight: bold;
+				color: #fff;
+				background-color: #2196f3;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			.button:hover {
+				background-color: #0d8bef;
+			}
+			.button:focus {
+				outline: none;
+			}
+			.lets-find-out {
+				background-color: transparent;
+				color: #fff;
+				font-size: 18px;
+				font-weight: bold;
+				border: none;
+				cursor: pointer;
+				text-decoration: underline;
+				margin-top: 20px;
+			}
+			.lets-find-out:hover {
+				color: #0d8bef;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="heading">
+			<h1>Facial Emotion Detector</h1>
+		</div>
+		<div class="bgimage">
+		<div class="container">
+			{% if Found == False %}
+				<h2>No Face Detected. Try Again</h2>
+			{% endif %}
+			<div class="label">What's your mood?</div>
+			<div class="button-container">
+				<a href="/emotion?mood=Happy"><button class="button">Happy</button></a>
+				<a href="/emotion?mood=Sad"><button class="button">Sad</button></a>
+				<a href="/emotion?mood=Neutral"><button class="button">Neutral</button></a>
+				<a href="/emotion?mood=Disgusted"><button class="button">Disgusted</button></a>
+				<a href="/emotion?mood=Angry"><button class="button">Angry</button></a>
+				<a href="/emotion?mood=Fearful"><button class="button">Fearful</button></a>
+				<a href="/emotion?mood=Surprised"><button class="button">Surprised</button></a>
+			</div>
+			<div class="button-container">
+			<a href="/emotion"><button class="button"><h1>Let's find out</h1></button></a>
+			</div>
+
+		</div>
+	</div>
+	</body>
+</html>

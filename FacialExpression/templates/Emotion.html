@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<title>My Website</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: #212121;
+				color: #fff;
+				font-family: Arial, sans-serif;
+			}
+			.heading {	
+				/* padding: 20px; */
+				text-align: center;
+				font-size: 36px;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				font-family: cursive;
+			}
+			.fullscreen-image {
+				background-image: url("{% static img_url %}");
+				background-size: cover;
+				background-position: center;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0.2;
+			}
+			.audio-player {
+				padding-top: 200px;
+				vertical-align: bottom;
+				background-color: rgba(185, 223, 223, 0.3);
+				padding: 20px;
+				width: 50%;
+				margin: 0 auto;
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+			}
+
+			.audio-player h2{
+				font-weight: bold;
+				font-style: italic;
+				color: #cee27c9c;
+				text-shadow: 2px 2px 4px #000000;
+				font-size: 35px;
+			}
+
+			audio {
+				width: 100%;
+				margin-top: 20px;
+			}
+			.audio-progress {
+				width: 100%;
+				height: 4px;
+				margin-top: 20px;
+				background-color: #ccc;
+				position: relative;
+				cursor: pointer;
+				border-radius: 2px;
+			}
+
+			.audio-progress-bar {
+				position: absolute;
+				left: 0;
+				top: 0;
+				height: 100%;
+				background-color: #2196f3;
+				transition: width 0.1s ease-in-out;
+				border-radius: 2px;
+			}
+
+			.audio-progress-pointer {
+				position: absolute;
+				top: -6px;
+				left: 0;
+				width: 12px;
+				height: 12px;
+				background-color: #2196f3;
+				border-radius: 50%;
+				transform: translateX(-50%);
+				will-change: transform;
+				transition: transform 0.1s ease-in-out;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="heading">
+			<h1>You seem {{emo}}!</h1>
+		</div>
+
+		<div class="fullscreen-image"></div>
+			<!-- <img src="{% static img_url %}">  -->
+		</div> 
+		<div class="audio-player">
+			<div>
+				<h2>{{song_name}}</h2>
+				<audio controls autoplay id="audio-player">
+					<source src="{% static song_url %}" type="audio/mpeg">
+				</audio>
+				<div class="audio-progress" id="audio-progress">
+					<div class="audio-progress-bar" id="audio-progress-bar"></div>
+					<div class="audio-progress-pointer"></div>
+				</div>
+			</div>
+		</div>
+		<script>
+			const audioPlayer = document.getElementById('audio-player');
+			const audioProgress = document.getElementById('audio-progress');
+			const audioProgressBar = document.getElementById('audio-progress-bar');
+			const audioProgressPointer = document.querySelector('.audio-progress-pointer');
+
+			// Update progress bar as song plays
+			audioPlayer.addEventListener('timeupdate', () => {
+				const { currentTime, duration } = audioPlayer;
+				const progressPercent = (currentTime / duration) * 100;
+				audioProgressBar.style.width = `${progressPercent}%`;
+				audioProgressPointer.style.left = `${progressPercent}%`;
+			});
+
+			// Set current time of song when progress bar is clicked
+			audioProgress.addEventListener('click', (e) => {
+				const progressWidth = audioProgress.clientWidth;
+				const clickPosition = e.offsetX;
+				const duration = audioPlayer.duration;
+				audioPlayer.currentTime = (clickPosition / progressWidth) * duration;
+			});
+		</script>
+	</body>
+</html>
